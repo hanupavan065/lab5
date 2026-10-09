@@ -1,0 +1,59 @@
+---
+title: "Getting Started with earthquakes"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with earthquakes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+```
+
+# Overview
+
+`earthquakes` is an R package for querying USGS earthquake data, searching near
+a location, calculating distances, grouping events in space and time, and
+creating a static map.
+
+## Query events
+
+```{r}
+library(earthquakes)
+events <- get_earthquakes(start_time = "2026-01-01",
+                          min_magnitude = 3, limit = 100)
+head(events)
+```
+
+## Search near a location
+
+The example coordinates are for Stockholm. The search radius is in kilometres.
+
+```{r}
+nearby <- get_nearby_earthquakes(
+  latitude = 59.3293, longitude = 18.0686,
+  radius_km = 100, min_magnitude = 1, limit = 500
+)
+```
+
+## Calculate distances and identify clusters
+
+```{r}
+with_distance <- earthquake_distance(nearby, 59.3293, 18.0686)
+clustered <- earthquake_clusters(nearby, distance_km = 50,
+                                 time_window_hours = 24)
+```
+
+Clustering uses connected components based on the supplied thresholds. It is
+intended for exploratory analysis, not definitive aftershock identification.
+
+## Plot earthquake locations
+
+```{r}
+earthquake_map(events)
+```
+
+## Run the Shiny application
+
+From the cloned repository root, run `shiny::runApp("inst/shiny")` after
+installing the package and the Shiny dependencies.

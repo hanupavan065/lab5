@@ -1,0 +1,26 @@
+Package: earthquakes
+Title: Query and Explore Earthquake Data from the USGS
+Version: 0.1.0
+Authors@R: person("Package","hanuvardhan","hanupavan065@gmail.com",
+         "surya", email = "suryavardhan7890@gmail.com", role = c("aut", "cre"))
+Description: Provides tools to query earthquake events
+    from the United States Geological
+    Survey (USGS), search events near
+    a location, calculate great-circle distances,
+    identify exploratory spatiotemporal clusters, and map earthquake locations.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Imports:
+    httr2,
+    ggplot2
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    shiny,
+    leaflet,
+    DT
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+Config/roxygen2/version: 8.1.1
